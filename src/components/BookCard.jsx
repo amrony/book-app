@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 
 const BookCard = ({ book, onRemove, showRemoveButton = false }) => {
 
@@ -11,38 +9,31 @@ const BookCard = ({ book, onRemove, showRemoveButton = false }) => {
 
 
   return (
-    
-    
-      <div className="book-card">
-        <Link to="#">
-          <div className="book-cover">
-              <img src={coverImg ? coverImg : book.cover } alt={book.title} />
-           
-          </div>
-        </Link>
-        <div className="book-info">
-          <Link to="#">
-            <h3 className="book-title">{book.title}</h3>
-          </Link>
-          <p className="book-author">{authors}</p>
-          <div className="book-genres">
-            {genres.map((genre, index) => (
-              <span key={index} className="genre-tag">{genre}</span>
-            ))}
-          </div>
-          {showRemoveButton && (
-            <button 
-              className="remove-btn"
-              onClick={(e) => {
-                e.preventDefault();
-                onRemove(book.id);
-              }}
-            >
-              Remove
-            </button>
-          )}
-        </div>
+    <div className="book-card">
+      <div className="book-cover">
+          <img src={coverImg ? coverImg : book.cover } alt={book.title} />
       </div>
+      <div className="book-info">
+        <h3 className="book-title">{book.title}</h3>
+        <p className="book-author">{authors}</p>
+        <div className="book-genres">
+          {genres.map((genre, index) => (
+            <span key={index} className="genre-tag">{genre}</span>
+          ))}
+        </div>
+        {showRemoveButton && (
+          <button 
+            className="remove-btn"
+            onClick={(e) => {
+              e.preventDefault();
+              onRemove(book.id);
+            }}
+          >
+            Remove
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 
