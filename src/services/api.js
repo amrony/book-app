@@ -10,6 +10,16 @@ export const fetchBooks = async (page = 1) => {
   return await response.json();
 };
 
+export const fetchBookById = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch book details')
+  }
+
+  return await response.json();
+};
+
 export const searchBooks = (books, searchTerm) => {
   if (!searchTerm) {
     return books
