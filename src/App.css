@@ -131,9 +131,6 @@ body {
 .book-title {
   font-weight: bold;
   margin-bottom: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
@@ -158,13 +155,42 @@ body {
   font-size: 0.7rem;
 }
 
+.wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.wishlist-btn.active {
+  color: red;
+}
+
+
+.details-section h3 {
+  display: inline-block;      
+  border-bottom: 2px solid #bb1616; 
+  /* padding-bottom: 8px;        */
+  /* margin-bottom: 16px;         */
+}
 
 /* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1px;
+  gap: 15px;
   margin: 30px 0;
 }
 
@@ -219,3 +245,52 @@ body {
   }
 }
 
+/* Wishlist Specific Styles */
+.empty-wishlist {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 40px 0;
+}
+
+.empty-wishlist i {
+  font-size: 3rem;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.empty-wishlist p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.empty-wishlist .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.empty-wishlist .btn:hover {
+  background-color: var(--secondary);
+}
+
+.book-card .remove-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.book-card .remove-btn:hover {
+  background-color: #f5c6cb;
+}
