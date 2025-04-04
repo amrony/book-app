@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchBookById } from "../services/api";
+import { getWishlist, toggleWishlistItem } from "../services/wishlist";
 import loadingImg from "../assets/loading.gif";
 
 const BookDetails = () => {
     const { id } = useParams();
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [inWishlist, setInWishlist] = useState(false);
 
     useEffect(() => {
       
@@ -18,6 +20,7 @@ const BookDetails = () => {
             setLoading(true);
             const bookData = await fetchBookById(id);
             setBook(bookData);
+            setInWishlist(getWishlist().some((item) => item.id === parseInt(id)));
         } catch (error) {
             console.error("Error loading book:", error);
         } finally {
@@ -26,6 +29,11 @@ const BookDetails = () => {
     };
 
 
+    const handleWishlistToggle = () => {
+        const updatedWishlist = toggleWishlistItem(book);
+        setInWishlist(updatedWishlist.some((item) => item.id === book.id));
+    };
+
     // console.log("Books::", book);
 
     if (loading) {
@@ -33,10 +41,10 @@ const BookDetails = () => {
         <div
             className="loading"
             style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
             }}
         >
             <img src={loadingImg} alt="Loading..." />
@@ -53,6 +61,12 @@ const BookDetails = () => {
             <div className="book-detail-container">
                 <div className="book-cover">
                 <img src={book.formats["image/jpeg"]} alt={book.title} />
+                <button
+                    className={`wishlist-btn ${inWishlist ? "active" : ""}`}
+                    onClick={handleWishlistToggle}
+                >
+                    <i className="fas fa-heart"></i>
+                </button>
                 </div>
                 <div className="book-info">
                     <h1>{book.title}</h1>
@@ -77,14 +91,14 @@ const BookDetails = () => {
                     {
                         book.subjects?.length > 0 && (
                             <div className="details-section">
-                                <h3>Subjects</h3>
-                                <div className="subjects">
-                                    {book.subjects.map((subject, index) => (
-                                        <span key={index} className="subject-tag">
-                                            {subject}
-                                        </span>
-                                    ))}
-                                </div>
+                            <h3>Subjects</h3>
+                            <div className="subjects">
+                                {book.subjects.map((subject, index) => (
+                                <span key={index} className="subject-tag">
+                                    {subject}
+                                </span>
+                                ))}
+                            </div>
                             </div>
                         )
                     }
